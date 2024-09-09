@@ -59,6 +59,5 @@ export interface CallbackReturns {
     }
     [client.callback.SteamCallback.SteamInventoryFullUpdate]: {
         handle: number
-        result: any;
     }
 }

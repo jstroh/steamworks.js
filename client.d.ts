@@ -57,8 +57,7 @@ export declare namespace callback {
     GameLobbyJoinRequested = 8,
     MicroTxnAuthorizationResponse = 9,
     SteamInventoryResultReady = 10,
-    SteamInventoryFullUpdate = 11,
-    SteamInventoryStartPurchaseResult = 12
+    SteamInventoryFullUpdate = 11
   }
   export function register<C extends keyof import('./callbacks').CallbackReturns>(steamCallback: C, handler: (value: import('./callbacks').CallbackReturns[C]) => void): Handle
   export class Handle {

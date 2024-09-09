@@ -3,7 +3,7 @@ use napi_derive::napi;
 #[napi]
 pub mod inventory {
     use napi::{bindgen_prelude::Error, Status};
-    use steamworks::{InventoryError, InventoryItem, InventoryResult};
+    use steamworks::{InventoryError, InventoryItem};
 
     #[napi(object)]
     pub struct JsInventoryItem {
@@ -29,7 +29,7 @@ pub mod inventory {
         let client = crate::client::get_client();
         let result = client.inventory().get_all_items();
         match result {
-            Ok(inventory_result) => Ok(inventory_result.handle()),
+            Ok(inventory_result) => Ok(inventory_result),
             Err(e) => match e {
                 InventoryError::OperationFailed => Err(Error::new(Status::GenericFailure, "Operation failed to complete".to_string())),
                 _ => Err(Error::new(Status::GenericFailure, "An unknown error occurred".to_string())),
@@ -40,7 +40,7 @@ pub mod inventory {
     #[napi]
     pub fn get_result_items(result_handle: i32) -> Result<Vec<JsInventoryItem>, Error> {
         let client = crate::client::get_client();
-        let result = client.inventory().get_result_items(InventoryResult::new(result_handle));
+        let result = client.inventory().get_result_items(result_handle);
         match result {
             Ok(inventory_items) => {
                 let js_items: Vec<JsInventoryItem> = inventory_items
