@@ -476,5 +476,4 @@ export declare namespace inventory {
   }
   export function getAllItems(): number
   export function getResultItems(resultHandle: number): Array<JsInventoryItem>
-  export function startPurchase(itemDefs: Array<number>, quantities: Array<number>): number
 }

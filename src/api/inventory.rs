@@ -3,7 +3,7 @@ use napi_derive::napi;
 #[napi]
 pub mod inventory {
     use napi::{bindgen_prelude::Error, Status};
-    use steamworks::{InventoryError, InventoryResult, InventoryItem, ItemDefId};
+    use steamworks::{InventoryError, InventoryItem, InventoryResult};
 
     #[napi(object)]
     pub struct JsInventoryItem {
@@ -53,27 +53,6 @@ pub mod inventory {
             Err(e) => match e {
                 InventoryError::OperationFailed => Err(Error::new(Status::GenericFailure, "Operation failed to complete".to_string())),
                 InventoryError::GetResultItemsFailed => Err(Error::new(Status::GenericFailure, "Failed to retrieve result items from inventory".to_string())),
-                InventoryError::InvalidInput => Err(Error::new(Status::InvalidArg, "Invalid input provided".to_string())),
-            },
-        }
-    }
-
-    #[napi]
-    pub fn start_purchase(item_defs: Vec<i32>, quantities: Vec<u32>) -> Result<i64, Error> {
-        if item_defs.len() != quantities.len() {
-            return Err(Error::new(Status::InvalidArg, "Mismatched item definitions and quantities.".to_string()));
-        }
-
-        let client = crate::client::get_client();
-        let inventory = client.inventory();
-
-        let item_def_ids: Vec<ItemDefId> = item_defs.into_iter().map(ItemDefId).collect();
-
-        match inventory.start_purchase(&item_def_ids, &quantities) {
-            Ok(api_call) => Ok(api_call as i64), // Return SteamAPICall_t as i64 for compatibility with JavaScript
-            Err(e) => match e {
-                InventoryError::OperationFailed => Err(Error::new(Status::GenericFailure, "Failed to start purchase".to_string())),
-                InventoryError::GetResultItemsFailed => Err(Error::new(Status::GenericFailure, "Failed to retrieve result items".to_string())),
                 InventoryError::InvalidInput => Err(Error::new(Status::InvalidArg, "Invalid input provided".to_string())),
             },
         }
