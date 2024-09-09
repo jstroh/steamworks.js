@@ -34,7 +34,8 @@ pub mod callback {
         P2PSessionConnectFail,
         GameLobbyJoinRequested,
         MicroTxnAuthorizationResponse,
-        SteamInventoryResultReady
+        SteamInventoryResultReady,
+        SteamInventoryFullUpdate
     }
 
     #[napi(ts_generic_types = "C extends keyof import('./callbacks').CallbackReturns")]
@@ -80,6 +81,9 @@ pub mod callback {
             }
             SteamCallback::SteamInventoryResultReady => {
                 register_callback::<steamworks::SteamInventoryResultReady>(threadsafe_handler)
+            }
+            SteamCallback::SteamInventoryFullUpdate => {
+                register_callback::<steamworks::SteamInventoryFullUpdate>(threadsafe_handler)
             }
         };
 
