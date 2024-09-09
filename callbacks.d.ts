@@ -53,4 +53,8 @@ export interface CallbackReturns {
         order_id: number | bigint
         authorized: boolean
     }
+    [client.callback.SteamCallback.SteamInventoryResultReady]: {
+        handle: number
+        result: any;
+    }
 }
