@@ -9,17 +9,7 @@ document.getElementById('activateOverlay').addEventListener('click', function() 
     client.overlay.activateToWebPage('https://www.example.com/')
 })
 
-async function test() {
+setInterval(async () => {
     const items = await client.inventory.getItems();
     console.log("YAY", items)
-}
-test();
-
-client.callback.register(steamworks.SteamCallback.SteamInventoryFullUpdate, (result) => {
-    const items = client.inventory.getResultItems(result.handle);
-    console.log(items);
-});
-
-setInterval(() => {
-    client.inventory.getAllItems();
 }, 1000)
