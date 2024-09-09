@@ -473,6 +473,7 @@ export declare namespace inventory {
     quantity: number
     flags: number
   }
+  export function getItems(): Promise<Array<JsInventoryItem>>
   export function getAllItems(): number
   export function getResultItems(resultHandle: number): Array<JsInventoryItem>
 }
