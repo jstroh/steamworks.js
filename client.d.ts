@@ -57,7 +57,8 @@ export declare namespace callback {
     GameLobbyJoinRequested = 8,
     MicroTxnAuthorizationResponse = 9,
     SteamInventoryResultReady = 10,
-    SteamInventoryFullUpdate = 11
+    SteamInventoryFullUpdate = 11,
+    SteamInventoryStartPurchaseResult = 12
   }
   export function register<C extends keyof import('./callbacks').CallbackReturns>(steamCallback: C, handler: (value: import('./callbacks').CallbackReturns[C]) => void): Handle
   export class Handle {
@@ -475,4 +476,5 @@ export declare namespace inventory {
   }
   export function getAllItems(): number
   export function getResultItems(resultHandle: number): Array<JsInventoryItem>
+  export function startPurchase(itemDefs: Array<number>, quantities: Array<number>): number
 }

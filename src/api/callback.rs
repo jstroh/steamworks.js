@@ -35,7 +35,8 @@ pub mod callback {
         GameLobbyJoinRequested,
         MicroTxnAuthorizationResponse,
         SteamInventoryResultReady,
-        SteamInventoryFullUpdate
+        SteamInventoryFullUpdate,
+        SteamInventoryStartPurchaseResult,
     }
 
     #[napi(ts_generic_types = "C extends keyof import('./callbacks').CallbackReturns")]
@@ -84,6 +85,9 @@ pub mod callback {
             }
             SteamCallback::SteamInventoryFullUpdate => {
                 register_callback::<steamworks::SteamInventoryFullUpdate>(threadsafe_handler)
+            }
+            SteamCallback::SteamInventoryStartPurchaseResult => {
+                register_callback::<steamworks::SteamInventoryStartPurchaseResult>(threadsafe_handler)
             }
         };
 
