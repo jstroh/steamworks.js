@@ -32,8 +32,7 @@ pub mod inventory {
             Ok(inventory_result) => Ok(inventory_result.handle()),
             Err(e) => match e {
                 InventoryError::OperationFailed => Err(Error::new(Status::GenericFailure, "Operation failed to complete".to_string())),
-                InventoryError::GetResultItemsFailed => Err(Error::new(Status::GenericFailure, "Failed to retrieve result items from inventory".to_string())),
-                InventoryError::InvalidInput => Err(Error::new(Status::InvalidArg, "Invalid input provided".to_string())),
+                _ => Err(Error::new(Status::GenericFailure, "An unknown error occurred".to_string())),
             },
         }
     }
